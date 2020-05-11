@@ -3,7 +3,6 @@
 
 
 from __future__ import absolute_import, division, print_function
-
 import json
 import logging
 import math
@@ -481,7 +480,7 @@ class LanguageModelingModel:
             training_progress_scores = self._create_training_progress_scores(**kwargs)
 
         if args["wandb_project"]:
-            wandb.init(project=args["wandb_project"])
+            wandb.init(project=args["wandb_project"], config={**args}, **args["wandb_kwargs"])
             wandb.watch(self.model)
 
         model.train()

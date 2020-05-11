@@ -13,14 +13,15 @@ transformers_logger.setLevel(logging.WARNING)
 
 train_args = {
     "use_tpu": bool(args.use_tpu),
+    "output_dir": "outputs/models/"
     "reprocess_input_data": False,
     "overwrite_output_dir": True,
-    "num_train_epochs": 3,
+    "num_train_epochs": 100,
     "save_eval_checkpoints": True,
     "save_model_every_epoch": False,
-    "learning_rate": 5e-4,
+    "learning_rate": 4e-4,
     "warmup_steps": 10000,
-    "train_batch_size": 64,
+    "train_batch_size": 256,
     "eval_batch_size": 128,
     "gradient_accumulation_steps": 1,
     "block_size": 128,
@@ -59,3 +60,8 @@ model = LanguageModelingModel(
 model.train_model(train_file, eval_file=test_file,)
 
 model.eval_model(test_file)
+
+
+model.save_discriminator()
+
+model.save_generator()
