@@ -28,7 +28,7 @@ train_args = {
     "max_seq_length": 128,
     "dataset_type": "simple",
     "wandb_project": "thesis",
-    "wandb_kwargs": {"name": "Electra-SMALL"},
+    "wandb_kwargs": {"name": "thesis"},
     "logging_steps": 100,
     "evaluate_during_training": True,
     "evaluate_during_training_steps": 50000,
