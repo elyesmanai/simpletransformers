@@ -179,7 +179,8 @@ class LanguageModelingModel:
             saved_model_args = self._load_model_args(model_name)
             if saved_model_args:
                 self.args.update(saved_model_args)
-        except Exception
+        except:
+            print('no saved model')
 
         if args:
             self.args.update(args)
