@@ -107,7 +107,7 @@ class LanguageModelingModel:
         train_files=None,
         args=None,
         use_cuda=False,
-        use_tpu=True,
+        use_tpu,
         cuda_device=-1,
         **kwargs,
     ):

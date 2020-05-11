@@ -53,9 +53,9 @@ model = LanguageModelingModel(
     "electra",
     None,
     args=train_args,
-    train_files=train_file,
+    train_files=train_file
 )
 
-model.train_model(train_file, eval_file=test_file,)
+model.train_model(train_file, eval_file=test_file)
 
 model.eval_model(test_file)
