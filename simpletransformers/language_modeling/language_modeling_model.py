@@ -175,9 +175,11 @@ class LanguageModelingModel:
 
         self.args.update(global_args)
 
-        saved_model_args = self._load_model_args(model_name)
-        if saved_model_args:
-            self.args.update(saved_model_args)
+        try:
+            saved_model_args = self._load_model_args(model_name)
+            if saved_model_args:
+                self.args.update(saved_model_args)
+        except Exception
 
         if args:
             self.args.update(args)
