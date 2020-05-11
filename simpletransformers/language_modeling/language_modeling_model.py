@@ -78,6 +78,11 @@ try:
 except ImportError:
     wandb_available = False
 
+# for using TPU
+import torch_xla
+import torch_xla.core.xla_model as xm
+
+
 logger = logging.getLogger(__name__)
 
 MODEL_CLASSES = {
@@ -101,7 +106,8 @@ class LanguageModelingModel:
         discriminator_name=None,
         train_files=None,
         args=None,
-        use_cuda=True,
+        use_cuda=False,
+        use_tpu=True,
         cuda_device=-1,
         **kwargs,
     ):
@@ -128,8 +134,12 @@ class LanguageModelingModel:
             if "n_gpu" in args and args["n_gpu"] > 0:
                 torch.cuda.manual_seed_all(args["manual_seed"])
 
-        if use_cuda:
+        if use_tpu:
+            print('using TPU')
+            cude_device = xm.xla_device()
+        elif use_cuda:
             if torch.cuda.is_available():
+                print('using GPU')
                 if cuda_device == -1:
                     self.device = torch.device("cuda")
                 else:
@@ -140,6 +150,7 @@ class LanguageModelingModel:
                     " Make sure CUDA is available or set use_cuda=False."
                 )
         else:
+            print('using CPU')
             self.device = "cpu"
 
         self.results = {}
@@ -519,7 +530,8 @@ class LanguageModelingModel:
                     else:
                         torch.nn.utils.clip_grad_norm_(model.parameters(), args["max_grad_norm"])
 
-                    optimizer.step()
+                    # Update parameters and take a step using the computed gradient
+                    xm.optimizer_step(optimizer, barrier=True) # instead of optimizer.step()
                     scheduler.step()  # Update learning rate schedule
                     model.zero_grad()
                     global_step += 1
