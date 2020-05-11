@@ -7,7 +7,7 @@ all_text = []
 for fl in os.scandir("../data/"):
     if fl.name.endswith(".txt") and "text" in fl.name:
         print(f'treating {fl.name}')
-        df = pd.read_csv(fl, columns=["text"], delimiter="\n", header=None)
+        df = pd.read_csv(fl, names=["text"], delimiter="\n", header=None)
         texts = df.text.tolist()
         texts = [t for t in tqdm(texts) if isinstance(t, str)]
         all_text.extend(texts)
