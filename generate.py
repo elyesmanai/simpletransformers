@@ -1,10 +1,7 @@
 from transformers import pipeline
 
-fill_mask = pipeline(
-    "fill-mask",
-    model = AutoModelWithLMHead.from_pretrained("outputs/generator_model"),
-    tokenizer= AutoTokenizer.from_pretrained("outputs/generator_model")
+# Allocate a pipeline for sentiment-analysis
+nlp = pipeline('sentiment-analysis')
+print(
+	nlp('We are very happy to include pipeline into the transformers repository.')
 )
-
-results = fill_mask(f"HuggingFace is creating a {fill_mask.tokenizer.mask_token} that the community uses to solve NLP tasks.")
-print(results)
