@@ -1,10 +1,11 @@
-from transformers import ElectraTokenizer, ElectraForMaskedLM
-import torch
+from transformers import pipeline
 
-tokenizer = ElectraTokenizer.from_pretrained('outputs/generator_model')
-model = ElectraForMaskedLM.from_pretrained('outputs/generator_model')
+fill_mask = pipeline(
+	"fill-mask",
+	model="outputs/generator_model",
+	tokenizer="outputs/generator_model"
+)
 
-input_ids = torch.tensor(tokenizer.encode("Hello, my dog is cute", add_special_tokens=True)).unsqueeze(0)  # Batch size 1
-outputs = model(input_ids, masked_lm_labels=input_ids)
-
-loss, prediction_scores = outputs[:2]
+print(
+	fill_mask(f"HuggingFace is creating a {fill_mask.tokenizer.mask_token} that the community uses to solve NLP tasks.")
+)
