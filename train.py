@@ -12,7 +12,7 @@ transformers_logger = logging.getLogger("transformers")
 transformers_logger.setLevel(logging.WARNING)
 
 train_args = {
-    "use_tpu": args.use_tpu,
+    "use_tpu": bool(args.use_tpu),
     "reprocess_input_data": False,
     "overwrite_output_dir": True,
     "num_train_epochs": 3,
