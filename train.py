@@ -13,7 +13,7 @@ transformers_logger.setLevel(logging.WARNING)
 
 train_args = {
     "use_tpu": bool(args.use_tpu),
-    "output_dir": "outputs/models/"
+    "output_dir": "outputs/models/",
     "reprocess_input_data": False,
     "overwrite_output_dir": True,
     "num_train_epochs": 100,
