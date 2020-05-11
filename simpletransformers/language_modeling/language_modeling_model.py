@@ -135,7 +135,7 @@ class LanguageModelingModel:
 
         if args['use_tpu']:
             print('using TPU')
-            cude_device = xm.xla_device()
+            self.device = xm.xla_device()
         elif use_cuda:
             if torch.cuda.is_available():
                 print('using GPU')
