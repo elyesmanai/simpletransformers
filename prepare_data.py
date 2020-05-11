@@ -6,7 +6,6 @@ all_text = []
 for fl in os.scandir("../data/"):
     if fl.name.endswith(".txt") and "text" in fl.name:
         df = pd.read_csv(fl, delimiter="\n", header=None)
-        df.columns = ["text"]
         texts = df.text.tolist()
         texts = [t for t in texts if isinstance(t, str)]
         all_text.extend(texts)
