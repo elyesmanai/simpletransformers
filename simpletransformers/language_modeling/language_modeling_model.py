@@ -107,7 +107,6 @@ class LanguageModelingModel:
         train_files=None,
         args=None,
         use_cuda=False,
-        use_tpu,
         cuda_device=-1,
         **kwargs,
     ):
@@ -134,7 +133,7 @@ class LanguageModelingModel:
             if "n_gpu" in args and args["n_gpu"] > 0:
                 torch.cuda.manual_seed_all(args["manual_seed"])
 
-        if use_tpu:
+        if args['use_tpu']:
             print('using TPU')
             cude_device = xm.xla_device()
         elif use_cuda:
