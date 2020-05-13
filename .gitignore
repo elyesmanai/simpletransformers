@@ -4,7 +4,6 @@ wandb/
 # Outputs from examples
 **/cache_dir
 **/runs
-**/outputs
 **/data
 
 # manual_test_scripts

@@ -1,0 +1,2 @@
+eval_loss = 7.931305885314941
+perplexity = tensor(2783.0588)
