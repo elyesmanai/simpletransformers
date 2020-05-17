@@ -311,7 +311,7 @@ class LanguageModelingModel:
             self.args["wandb_project"] = None
 
     def train_model(
-        self, train_file, output_dir=None, show_running_loss=True, args=None, eval_file=None, verbose=True, **kwargs,
+        self, train_file, output_dir=None, show_running_loss=True, args=None, eval_file=None, verbose=True, **kwargs
     ):
         """
         Trains the model using 'train_file'
