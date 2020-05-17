@@ -299,10 +299,11 @@ class LanguageModelingModel:
                 model_to_resize.resize_token_embeddings(len(self.tokenizer))
 
         if model_type in ["camembert", "xlmroberta"]:
+            '''
             warnings.warn(
                 f"use_multiprocessing automatically disabled as {model_type}"
                 " fails when using multiprocessing for feature conversion."
-            )
+            )'''
             self.args["use_multiprocessing"] = False
 
         if self.args["wandb_project"] and not wandb_available:
