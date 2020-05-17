@@ -5,6 +5,8 @@ import argparse
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--use_tpu", default=False)
+parser.add_argument("--num_epochs", default=100)
+parser.add_argument("--batch_size", default=256)
 args = parser.parse_args()
 
 logging.basicConfig(level=logging.INFO)
@@ -16,12 +18,12 @@ train_args = {
     "output_dir": "outputs/models/",
     "reprocess_input_data": False,
     "overwrite_output_dir": True,
-    "num_train_epochs": 100,
+    "num_train_epochs": args.num_epochs,
     "save_eval_checkpoints": True,
     "save_model_every_epoch": False,
     "learning_rate": 4e-4,
     "warmup_steps": 10000,
-    "train_batch_size": 256,
+    "train_batch_size": args.batch_size,
     "eval_batch_size": 128,
     "gradient_accumulation_steps": 1,
     "block_size": 128,
