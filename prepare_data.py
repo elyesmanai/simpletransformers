@@ -6,7 +6,7 @@ from tqdm import tqdm
 all_text = []
 for fl in os.scandir("../data/"):
     if fl.name.endswith(".txt"):
-        print(f"treating {fl.name}")
+        #print(f"treating {fl.name}")
         df = pd.read_csv(fl, names=["text"], delimiter="\n", header=None)
         texts = df.text.tolist()
         texts = [t for t in tqdm(texts) if isinstance(t, str)]
