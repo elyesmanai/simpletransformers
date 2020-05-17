@@ -376,7 +376,7 @@ class LanguageModelingModel:
             logger.info(" Training of {} model complete. Saved to {}.".format(self.args["model_type"], output_dir))
 
     def train(
-        self, train_dataset, output_dir, show_running_loss=True, eval_file=None, verbose=True, **kwargs,
+        self, train_dataset, output_dir, show_running_loss=True, eval_file=None, verbose=True, **kwargs
     ):
         """
         Trains the model on train_dataset.
