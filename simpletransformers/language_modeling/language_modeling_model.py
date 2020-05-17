@@ -138,10 +138,10 @@ class LanguageModelingModel:
         elif use_cuda:
             if torch.cuda.is_available():
                 print('using GPU')
-                if cuda_device == -1:
-                    self.device = torch.device("cuda")
-                else:
-                    self.device = torch.device(f"cuda:{cuda_device}")
+                #if cuda_device == -1:
+                    #self.device = torch.device("cuda")
+                #else:
+                    #self.device = torch.device(f"cuda:{cuda_device}")
             else:
                 raise ValueError(
                     "'use_cuda' set to True when cuda is unavailable."
