@@ -107,7 +107,7 @@ class LanguageModelingModel:
         args=None,
         use_cuda=False,
         cuda_device=-1,
-        **kwargs
+        **kwargs,
     ):
 
         """
@@ -132,16 +132,17 @@ class LanguageModelingModel:
             if "n_gpu" in args and args["n_gpu"] > 0:
                 torch.cuda.manual_seed_all(args["manual_seed"])
 
+        # to use this add "use_tpu": True to  train_args 
         if args['use_tpu']:
             print('using TPU')
             self.device = xm.xla_device()
         elif use_cuda:
             if torch.cuda.is_available():
                 print('using GPU')
-                #if cuda_device == -1:
-                    #self.device = torch.device("cuda")
-                #else:
-                    #self.device = torch.device(f"cuda:{cuda_device}")
+                if cuda_device == -1:
+                    self.device = torch.device("cuda")
+                else:
+                    self.device = torch.device(f"cuda:{cuda_device}")
             else:
                 raise ValueError(
                     "'use_cuda' set to True when cuda is unavailable."
@@ -299,11 +300,10 @@ class LanguageModelingModel:
                 model_to_resize.resize_token_embeddings(len(self.tokenizer))
 
         if model_type in ["camembert", "xlmroberta"]:
-            '''
             warnings.warn(
                 f"use_multiprocessing automatically disabled as {model_type}"
                 " fails when using multiprocessing for feature conversion."
-            )'''
+            )
             self.args["use_multiprocessing"] = False
 
         if self.args["wandb_project"] and not wandb_available:
@@ -311,7 +311,7 @@ class LanguageModelingModel:
             self.args["wandb_project"] = None
 
     def train_model(
-        self, train_file, output_dir=None, show_running_loss=True, args=None, eval_file=None, verbose=True, **kwargs
+        self, train_file, output_dir=None, show_running_loss=True, args=None, eval_file=None, verbose=True, **kwargs,
     ):
         """
         Trains the model using 'train_file'
@@ -376,7 +376,7 @@ class LanguageModelingModel:
             logger.info(" Training of {} model complete. Saved to {}.".format(self.args["model_type"], output_dir))
 
     def train(
-        self, train_dataset, output_dir, show_running_loss=True, eval_file=None, verbose=True, **kwargs
+        self, train_dataset, output_dir, show_running_loss=True, eval_file=None, verbose=True, **kwargs,
     ):
         """
         Trains the model on train_dataset.
@@ -533,7 +533,11 @@ class LanguageModelingModel:
                         torch.nn.utils.clip_grad_norm_(model.parameters(), args["max_grad_norm"])
 
                     # Update parameters and take a step using the computed gradient
-                    xm.optimizer_step(optimizer, barrier=True) # instead of optimizer.step()
+                    if args['use_tpu']:
+                        xm.optimizer_step(optimizer, barrier=True)
+                    else: 
+                        optimizer.step()
+
                     scheduler.step()  # Update learning rate schedule
                     model.zero_grad()
                     global_step += 1
