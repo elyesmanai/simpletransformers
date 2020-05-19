@@ -105,8 +105,8 @@ class LanguageModelingModel:
         discriminator_name=None,
         train_files=None,
         args=None,
-        use_cuda=False,
-        cuda_device=-1,
+        use_cuda=True,
+        cuda_device=0,
         **kwargs
     ):
 
