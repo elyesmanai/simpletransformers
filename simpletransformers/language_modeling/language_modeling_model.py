@@ -535,10 +535,10 @@ class LanguageModelingModel:
                         torch.nn.utils.clip_grad_norm_(model.parameters(), args["max_grad_norm"])
 
                     # Update parameters and take a step using the computed gradient
-                    if args['use_tpu']:
-                        #xm.optimizer_step(optimizer, barrier=True)
-                    else: 
-                        optimizer.step()
+                    #if args['use_tpu']:
+                    #    xm.optimizer_step(optimizer, barrier=True)
+                    #else: 
+                    optimizer.step()
 
                     scheduler.step()  # Update learning rate schedule
                     model.zero_grad()
