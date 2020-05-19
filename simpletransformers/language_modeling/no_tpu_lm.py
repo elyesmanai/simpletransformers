@@ -77,10 +77,6 @@ try:
 except ImportError:
     wandb_available = False
 
-# for using TPU
-import torch_xla
-import torch_xla.core.xla_model as xm
-
 
 logger = logging.getLogger(__name__)
 
