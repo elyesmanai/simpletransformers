@@ -78,8 +78,8 @@ except ImportError:
     wandb_available = False
 
 # for using TPU
-import torch_xla
-import torch_xla.core.xla_model as xm
+#import torch_xla
+#import torch_xla.core.xla_model as xm
 
 
 logger = logging.getLogger(__name__)
@@ -135,7 +135,7 @@ class LanguageModelingModel:
         # to use this add "use_tpu": True to  train_args 
         if args['use_tpu']:
             print('using TPU')
-            self.device = xm.xla_device()
+            #self.device = xm.xla_device()
             print('using TPU')
         elif use_cuda:
             if torch.cuda.is_available():
@@ -320,7 +320,8 @@ class LanguageModelingModel:
         Args:
             train_file: Path to text file containing the text to train the language model on.
             output_dir: The directory where model files will be saved. If not given, self.args['output_dir'] will be used.
-            show_running_loss (optional): Set to False to prevent running loss from being printed to console. Defaults to True.
+            show_running_loss (
+            onal): Set to False to prevent running loss from being printed to console. Defaults to True.
             args (optional): Optional changes to the args dict of the model. Any changes made will persist for the model.
             eval_file (optional): Path to eval file containing the text to evaluate the language model on.
 
@@ -535,7 +536,7 @@ class LanguageModelingModel:
 
                     # Update parameters and take a step using the computed gradient
                     if args['use_tpu']:
-                        xm.optimizer_step(optimizer, barrier=True)
+                        #xm.optimizer_step(optimizer, barrier=True)
                     else: 
                         optimizer.step()
 
