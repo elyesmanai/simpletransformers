@@ -9,7 +9,7 @@ parser.add_argument("--num_epochs", default=100)
 parser.add_argument("--batch_size", default=256)
 args = parser.parse_args()
 
-if args.user_tpu:
+if args.use_tpu:
     from simpletransformers.language_modeling import LanguageModelingModel
 else:
     from simpletransformers.language_modeling import NoTpuLm as LanguageModelingModel
