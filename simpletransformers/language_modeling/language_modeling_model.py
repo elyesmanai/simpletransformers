@@ -107,7 +107,7 @@ class LanguageModelingModel:
         args=None,
         use_cuda=False,
         cuda_device=-1,
-        **kwargs,
+        **kwargs
     ):
 
         """
