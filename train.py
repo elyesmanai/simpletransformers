@@ -1,4 +1,4 @@
-from simpletransformers.language_modeling import LanguageModelingModel
+
 import logging
 import argparse
 
@@ -8,6 +8,11 @@ parser.add_argument("--use_tpu", default=False)
 parser.add_argument("--num_epochs", default=100)
 parser.add_argument("--batch_size", default=256)
 args = parser.parse_args()
+
+if args.user_tpu:
+    from simpletransformers.language_modeling import LanguageModelingModel
+else:
+    from simpletransformers.language_modeling import NoTpuLm as LanguageModelingModel
 
 logging.basicConfig(level=logging.INFO)
 transformers_logger = logging.getLogger("transformers")
