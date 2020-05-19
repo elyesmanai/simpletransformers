@@ -77,9 +77,9 @@ try:
 except ImportError:
     wandb_available = False
 
-# for using TPU
-#import torch_xla
-#import torch_xla.core.xla_model as xm
+#for using TPU
+import torch_xla
+import torch_xla.core.xla_model as xm
 
 
 logger = logging.getLogger(__name__)
@@ -135,7 +135,7 @@ class LanguageModelingModel:
         # to use this add "use_tpu": True to  train_args 
         if args['use_tpu']:
             print('using TPU')
-            #self.device = xm.xla_device()
+            self.device = xm.xla_device()
             print('using TPU')
         elif use_cuda:
             if torch.cuda.is_available():
@@ -535,9 +535,9 @@ class LanguageModelingModel:
                         torch.nn.utils.clip_grad_norm_(model.parameters(), args["max_grad_norm"])
 
                     # Update parameters and take a step using the computed gradient
-                    #if args['use_tpu']:
-                    #    xm.optimizer_step(optimizer, barrier=True)
-                    #else: 
+                    if args['use_tpu']:
+                        xm.optimizer_step(optimizer, barrier=True)
+                    else: 
                     optimizer.step()
 
                     scheduler.step()  # Update learning rate schedule
