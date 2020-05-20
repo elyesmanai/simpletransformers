@@ -334,7 +334,7 @@ class LanguageModelingModel:
 
         if self.args["silent"]:
             show_running_loss = False
-
+        args['fp16'] = False
         if self.args["evaluate_during_training"] and eval_file is None:
             raise ValueError(
                 "evaluate_during_training is enabled but eval_file is not specified."
