@@ -536,6 +536,7 @@ class LanguageModelingModel:
 
                     # Update parameters and take a step using the computed gradient
                     if args['use_tpu']:
+                        print('h')
                         #xm.optimizer_step(optimizer, barrier=True)
                     else: 
                         optimizer.step()
