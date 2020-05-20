@@ -127,7 +127,7 @@ class LanguageModelingModel:
             torch.manual_seed(args["manual_seed"])
             if "n_gpu" in args and args["n_gpu"] > 0:
                 torch.cuda.manual_seed_all(args["manual_seed"])
-
+        args['fp16'] = False
         # to use this add "use_tpu": True to  train_args 
         if args['use_tpu']:
             print('using TPU')
