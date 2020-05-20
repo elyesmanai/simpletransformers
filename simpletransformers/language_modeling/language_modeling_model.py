@@ -538,7 +538,7 @@ class LanguageModelingModel:
                     if args['use_tpu']:
                         xm.optimizer_step(optimizer, barrier=True)
                     else: 
-                    optimizer.step()
+                        optimizer.step()
 
                     scheduler.step()  # Update learning rate schedule
                     model.zero_grad()
