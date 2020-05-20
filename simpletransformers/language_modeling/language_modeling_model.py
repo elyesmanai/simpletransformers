@@ -106,7 +106,7 @@ class LanguageModelingModel:
         train_files=None,
         args=None,
         use_cuda=True,
-        cuda_device=0,
+        cuda_device=-1,
         **kwargs
     ):
 
@@ -186,8 +186,7 @@ class LanguageModelingModel:
         if args:
             self.args.update(args)
 
-        if not use_cuda:
-            self.args["fp16"] = False
+        self.args["fp16"] = False
 
         if args:
             self.args.update(args)
@@ -334,7 +333,7 @@ class LanguageModelingModel:
 
         if self.args["silent"]:
             show_running_loss = False
-        args['fp16'] = False
+            
         if self.args["evaluate_during_training"] and eval_file is None:
             raise ValueError(
                 "evaluate_during_training is enabled but eval_file is not specified."
